@@ -172,7 +172,6 @@ module "db" {
   backup_retention_period = "31"
   storage_type            = "gp2"
   kms_key_id              = "${var.kms_key_id != "" ? var.kms_key_id : aws_kms_key.key.arn}"
-  kms_key_id              = "${aws_kms_key.key.arn}"
   snapshot_identifier     = "${var.db_snapshot_identifier}"
   db_name                 = "${var.db_name}"
 }
