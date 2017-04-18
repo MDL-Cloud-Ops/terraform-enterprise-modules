@@ -152,7 +152,7 @@ module "instance" {
   redis_port           = "${module.redis.port}"
   bucket_name          = "${var.bucket_name}"
   bucket_region        = "${var.region}"
-  kms_key_id           = "${var.kms_key_id != "" ? var.kms_key_id : aws_kms_key.key.arn}"
+  kms_key_id           = "${var.kms_key_id}"
   bucket_force_destroy = "${var.bucket_force_destroy}"
   manage_bucket        = "${var.manage_bucket}"
 }
@@ -171,7 +171,7 @@ module "db" {
   vpc_id                  = "${data.aws_subnet.instance.vpc_id}"
   backup_retention_period = "31"
   storage_type            = "gp2"
-  kms_key_id              = "${var.kms_key_id != "" ? var.kms_key_id : aws_kms_key.key.arn}"
+  kms_key_id              = "${var.kms_key_id}"
   snapshot_identifier     = "${var.db_snapshot_identifier}"
   db_name                 = "${var.db_name}"
 }
@@ -186,7 +186,7 @@ module "redis" {
 }
 
 output "kms_key_id" {
-  value = "${var.kms_key_id != "" ? var.kms_key_id : aws_kms_key.key.arn}"
+  value = "${var.kms_key_id}"
 }
 
 output "url" {
