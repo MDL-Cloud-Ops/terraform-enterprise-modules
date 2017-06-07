@@ -195,6 +195,11 @@ module "instance" {
   kms_key_id           = "${coalesce(var.kms_key_id, join("", aws_kms_key.key.*.arn))}"
   bucket_force_destroy = "${var.bucket_force_destroy}"
   manage_bucket        = "${var.manage_bucket}"
+
+  # MDL Extension
+  join_elbs                           = ["${module.mdl_extensions.elb-internal-id},${module.mdl_extensions.elb-public-id}"]
+  # MDL Extension
+  instance_additional_security_groups = ["${module.mdl_extensions.sg-terraform-instance-id}"]
 }
 
 module "db" {

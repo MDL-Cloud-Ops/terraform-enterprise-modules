@@ -112,7 +112,7 @@ resource "aws_launch_configuration" "ptfe" {
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.key_name}"
-  security_groups      = ["${aws_security_group.ptfe.id}"]
+  security_groups      = ["${aws_security_group.ptfe.id}","${var.instance_additional_security_groups}"]
   iam_instance_profile = "${aws_iam_instance_profile.tfe_instance.name}"
 
   root_block_device {
@@ -140,7 +140,7 @@ resource "aws_autoscaling_group" "ptfe" {
   min_size              = 1
   max_size              = 1
   vpc_zone_identifier   = ["${var.instance_subnet_id}"]
-  load_balancers        = ["${aws_elb.ptfe.id}"]
+  load_balancers        = ["${aws_elb.ptfe.id}","${var.join_elbs}"]
   wait_for_elb_capacity = 1
 
   tag {
