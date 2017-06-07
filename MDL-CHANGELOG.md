@@ -6,3 +6,4 @@
   * Introduction of new `terraform-enterprise-instance` security group to
     enable networking to/from the ELBs
   * Register new ELBs in DNS
+  * Add SSH connectivity to instances directly from VPN
