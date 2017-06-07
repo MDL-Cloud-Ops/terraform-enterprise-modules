@@ -197,9 +197,9 @@ module "instance" {
   manage_bucket        = "${var.manage_bucket}"
 
   # MDL Extension
-  join_elbs                           = ["${module.mdl_extensions.elb-internal-id},${module.mdl_extensions.elb-public-id}"]
+  join_elbs                           = ["${list(module.mdl_extensions.elb-internal-id,module.mdl_extensions.elb-public-id)}"]
   # MDL Extension
-  instance_additional_security_groups = ["${module.mdl_extensions.sg-terraform-instance-id}"]
+  instance_additional_security_groups = ["${list(module.mdl_extensions.sg-terraform-instance-id)}"]
 }
 
 module "db" {
