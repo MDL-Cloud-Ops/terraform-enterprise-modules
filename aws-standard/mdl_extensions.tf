@@ -15,4 +15,5 @@ module "mdl_extensions" {
   vpc_id           = "${data.aws_subnet.instance.vpc_id}"
   elb_subnet_id    = "${var.elb_subnet_id}"
   vpn_access_cidr  = "${var.vpn_access_cidr}"
+  region           = "${var.region}"
 }

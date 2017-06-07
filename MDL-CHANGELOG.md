@@ -5,3 +5,4 @@
     access. Existing ELB to be removed subsequently
   * Introduction of new `terraform-enterprise-instance` security group to
     enable networking to/from the ELBs
+  * Register new ELBs in DNS
