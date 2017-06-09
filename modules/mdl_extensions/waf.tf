@@ -31,7 +31,7 @@ resource "aws_waf_web_acl" "ipwl" {
 
 resource "aws_waf_rule" "internal" {
   name        = "terraform-enterprise/whitelist/internal"
-  metric_name = "terraform_mckinsey_digital_Internal"
+  metric_name = "TerraformMcKinseyDigitalInternal"
 
   predicates {
     data_id = "${aws_waf_ipset.internal.id}"
@@ -42,7 +42,7 @@ resource "aws_waf_rule" "internal" {
 
 resource "aws_waf_rule" "loopback" {
   name        = "terraform-enterprise/whitelist/loopback"
-  metric_name = "terraform_mckinsey_digital_Loopback"
+  metric_name = "TerraformMcKinseyDigitalLoopback"
 
   predicates {
     data_id = "${aws_waf_ipset.loopback.id}"
