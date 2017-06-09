@@ -33,6 +33,8 @@ variable "redis_port" {}
 variable "kms_key_id" {}
 
 resource "aws_security_group" "ptfe" {
+  count = 0 # MDL CHANGE - INDEPENDENT SECURITY CONFIGURATION
+
   vpc_id = "${var.vpc_id}"
 
   ingress {
@@ -71,6 +73,8 @@ resource "aws_security_group" "ptfe" {
 }
 
 resource "aws_security_group" "ptfe-external" {
+  count = 0 # MDL CHANGE - INDEPENDENT ELB CONFIGURATION
+
   vpc_id = "${var.vpc_id}"
 
   ingress {
@@ -112,7 +116,7 @@ resource "aws_launch_configuration" "ptfe" {
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.key_name}"
-  security_groups      = ["${concat(list(aws_security_group.ptfe.id),var.instance_additional_security_groups)}"]
+  security_groups      = ["${var.instance_additional_security_groups}"] # MDL CHANGE - ACCESS RESTRICTIONS
   iam_instance_profile = "${aws_iam_instance_profile.tfe_instance.name}"
 
   root_block_device {
@@ -140,7 +144,7 @@ resource "aws_autoscaling_group" "ptfe" {
   min_size              = 1
   max_size              = 1
   vpc_zone_identifier   = ["${var.instance_subnet_id}"]
-  load_balancers        = ["${concat(list(aws_elb.ptfe.id),var.join_elbs)}"]
+  load_balancers        = ["${var.join_elbs}"] # MDL CHANGE - INDEPENDENT ELB CONFIGURATION
   wait_for_elb_capacity = 1
 
   tag {
@@ -187,6 +191,8 @@ KMS_KEY_ID="${var.kms_key_id}"
 }
 
 resource "aws_elb" "ptfe" {
+  count = 0 # MDL CHANGE - INDEPENDENT ELB CONFIGURATION
+
   subnets         = ["${var.elb_subnet_id}"]
   security_groups = ["${aws_security_group.ptfe-external.id}"]
 
@@ -219,11 +225,11 @@ resource "aws_elb" "ptfe" {
 }
 
 output "dns_name" {
-  value = "${aws_elb.ptfe.dns_name}"
+  value = "" # MDL CHANGE - INDEPENDENT ELB CONFIGURATION
 }
 
 output "zone_id" {
-  value = "${aws_elb.ptfe.zone_id}"
+  value = "" # MDL CHANGE - INDEPENDENT ELB CONFIGURATION
 }
 
 output "hostname" {
