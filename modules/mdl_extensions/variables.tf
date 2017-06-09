@@ -10,7 +10,10 @@ variable "instance_subnet_id" {}
 
 variable "elb_subnet_id" {}
 
-variable "vpn_access_cidr" {}
+variable "vpn_access_cidr" {
+  type = "list"
+  default = []
+}
 
 variable "region" {}
 

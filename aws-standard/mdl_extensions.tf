@@ -8,7 +8,10 @@ variable "cert_origin_id" {}
 variable "cert_internal_id" {}
 
 # CIDR range for VPN access to the instance
-variable "vpn_access_cidr" {}
+variable "vpn_access_cidr" {
+  type = "list"
+  default = []
+}
 
 # List of public IP addresses. Not using remote state to ease transition out of Atlas SaaS
 variable "nat_public_ips" {
@@ -25,7 +28,7 @@ module "mdl_extensions" {
   vpc_id             = "${data.aws_subnet.instance.vpc_id}"
   instance_subnet_id = "${var.instance_subnet_id}"
   elb_subnet_id      = "${var.elb_subnet_id}"
-  vpn_access_cidr    = "${var.vpn_access_cidr}"
+  vpn_access_cidr    = [ "${var.vpn_access_cidr}" ]
   region             = "${var.region}"
   nat_public_ips     = [ "${var.nat_public_ips}" ]
 }
