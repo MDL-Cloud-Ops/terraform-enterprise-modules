@@ -6,6 +6,8 @@ variable "cert_internal_id" {}
 
 variable "cert_cloudfront_id" {}
 
+variable "instance_subnet_id" {}
+
 variable "elb_subnet_id" {}
 
 variable "vpn_access_cidr" {}

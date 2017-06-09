@@ -2,7 +2,7 @@ resource "aws_elb" "portal-internal" {
   name     = "terraform-enterprise-internal"
   internal = true
 
-  subnets = ["${var.elb_subnet_id}"]
+  subnets = ["${var.instance_subnet_id}"]
 
   listener {
     lb_port            = 443

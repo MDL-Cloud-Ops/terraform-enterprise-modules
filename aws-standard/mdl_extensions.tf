@@ -23,6 +23,7 @@ module "mdl_extensions" {
   cert_internal_id   = "${var.cert_internal_id}"
   cert_cloudfront_id = "${var.cert_cloudfront_id}"
   vpc_id             = "${data.aws_subnet.instance.vpc_id}"
+  instance_subnet_id = "${var.instance_subnet_id}"
   elb_subnet_id      = "${var.elb_subnet_id}"
   vpn_access_cidr    = "${var.vpn_access_cidr}"
   region             = "${var.region}"
