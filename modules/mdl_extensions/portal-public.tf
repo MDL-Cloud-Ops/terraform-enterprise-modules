@@ -15,8 +15,8 @@ resource "aws_elb" "portal-public" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
     timeout             = 3
-    interval            = 30
-    target              = "TCP:81"
+    target              = "TCP:8080"
+    interval            = 5
   }
 
   security_groups = ["${aws_security_group.portal-public.id}"]
