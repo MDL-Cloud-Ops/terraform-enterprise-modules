@@ -4,7 +4,7 @@ data "template_file" "waf" {
 
 resource "aws_waf_web_acl" "ipwl" {
   name        = "${data.template_file.waf.rendered}/ipwl"
-  metric_name = "terraform_mckinsey_digital"
+  metric_name = "TerraformMcKinseyDigitalIPWL"
 
   default_action {
     type = "BLOCK"
