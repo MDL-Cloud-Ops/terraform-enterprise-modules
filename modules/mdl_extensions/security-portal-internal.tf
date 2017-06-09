@@ -24,3 +24,12 @@ resource "aws_security_group_rule" "portal-internal-to-tfe" {
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.terraform-enterprise-instance.id}"
 }
+
+resource "aws_security_group_rule" "portal-internal-from-tfe" {
+  security_group_id        = "${aws_security_group.portal-internal.id}"
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.terraform-enterprise-instance.id}"
+}
