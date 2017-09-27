@@ -63,6 +63,44 @@ data "aws_iam_policy_document" "tfe-perms" {
       "logs:DescribeLogStreams",
     ]
   }
+
+  statement {
+    sid    = "AllowEC2ByInstallationId"
+    effect = "Allow"
+
+    resources = ["*"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "ec2:ResourceTag/InstallationId"
+      values   = ["${var.installation_id}"]
+    }
+
+    actions = [
+      "ec2:*",
+    ]
+  }
+
+  statement {
+    sid       = "AllowEC2DescribeVolumes"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ec2:DescribeVolumes",
+    ]
+  }
+
+  statement {
+    sid       = "DenyEC2Tags"
+    effect    = "Deny"
+    resources = ["*"]
+
+    actions = [
+      "ec2:CreateTag",
+      "ec2:DeleteTag",
+    ]
+  }
 }
 
 resource "aws_iam_role_policy" "tfe-perms" {

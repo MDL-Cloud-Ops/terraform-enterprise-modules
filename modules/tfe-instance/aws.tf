@@ -129,6 +129,8 @@ resource "aws_launch_configuration" "ptfe" {
 mkdir -p /etc/atlas
 
 aws configure set s3.signature_version s3v4
+aws configure set default.region ${var.bucket_region}
+echo  "${var.bucket_name}\n${var.bucket_region}" > /etc/ptfe/s3-bucket
 aws s3 cp s3://${aws_s3_bucket_object.setup.bucket}/${aws_s3_bucket_object.setup.key} /etc/atlas/boot.env
   BASH
 }
@@ -187,6 +189,9 @@ TFE_HOSTNAME="${var.hostname}"
 BUCKET_URL="${var.bucket_name}"
 BUCKET_REGION="${var.bucket_region}"
 KMS_KEY_ID="${var.kms_key_id}"
+INSTALL_ID="${var.installation_id}"
+DATA_REDUNDANCY="0"
+PROXY_URL=""
     BASH
 }
 
