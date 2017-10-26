@@ -93,6 +93,13 @@ resource "aws_db_instance" "rds" {
   timeouts {
     create = "2h"
   }
+
+  // Enable copying of automatic snapshots to another account+region (ops-admin)
+  copy_tags_to_snapshot = true
+
+  tags {
+    "Backup" = "enabled"
+  }
 }
 
 output "database" {
