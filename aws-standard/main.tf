@@ -211,7 +211,7 @@ module "db" {
   password                = "${var.db_password}"
   storage_gbs             = "${var.db_size_gb}"
   subnet_ids              = "${var.data_subnet_ids}"
-  version                 = "9.4.7"
+  version                 = "${var.db_engine_version}" # MDL enhancement
   vpc_cidr                = "0.0.0.0/0"
   vpc_id                  = "${data.aws_subnet.instance.vpc_id}"
   backup_retention_period = "31"

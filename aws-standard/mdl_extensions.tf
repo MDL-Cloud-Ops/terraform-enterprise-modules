@@ -19,6 +19,13 @@ variable "nat_public_ips" {
   default = []
 }
 
+# We want management of the DB engine version to be managed outside of TF code
+# This allows us to apply security updates.
+variable "db_engine_version" {
+  type    = "string"
+  default = "9.4.7"
+}
+
 module "mdl_extensions" {
   source = "../modules/mdl_extensions"
 
